@@ -6,6 +6,8 @@
 package javaapp;
 
 import javaapp.Interfaces.GraphADT;
+import javaapp.Pessoa.Pessoa;
+
 import java.util.Iterator;
 
 /**
@@ -16,13 +18,59 @@ public class Graph<T> implements GraphADT<T> {
 
     protected final int DEFAULT_CAPACITY = 10;
     protected int numVertices;
-    protected boolean[][] adjMatrix;
+    protected double[][] adjMatrix;
     protected T[] vertices;
 
     public Graph() {
         numVertices = 0;
-        this.adjMatrix = new boolean[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
+        this.adjMatrix = new double[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
         this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);
+    }
+    public String toString()
+    {
+        if (numVertices == 0)
+            return "Graph is empty";
+
+        String result = new String("");
+
+        result += "Adjacency Matrix\n";
+        result += "----------------\n";
+        result += "index\t";
+
+        for (int i = 0; i < numVertices; i++)
+        {
+            result += "" + i;
+            if (i < 10)
+                result += " ";
+        }
+        result += "\n\n";
+
+        for (int i = 0; i < numVertices; i++)
+        {
+            result += "" + i + "\t";
+
+            for (int j = 0; j < numVertices; j++)
+            {
+                if (adjMatrix[i][j]!=0)
+                    result += adjMatrix[i][j]+ " ";
+                else
+                    result += "0 ";
+            }
+            result += "\n";
+        }
+
+        result += "\n\nVertex Values";
+        result += "\n-------------\n";
+        result += "index\tvalue\n\n";
+
+        for (int i = 0; i < numVertices; i++)
+        {
+            Pessoa temp= (Pessoa) vertices[i];
+            result += "" + i + "\t";
+            result += temp.getNome() + "\n";
+        }
+        result += "\n";
+        return result;
     }
 
     @Override
@@ -30,36 +78,67 @@ public class Graph<T> implements GraphADT<T> {
         if (numVertices == vertices.length) {
             expandCapacity();
         }
-
-        vertices[numVertices] = vertex;
+                vertices[numVertices] = vertex;
         for (int i = 0; i <= numVertices; i++) {
-            adjMatrix[numVertices][i] = false;
-            adjMatrix[i][numVertices] = false;
+            adjMatrix[numVertices][i] = 0;
+            adjMatrix[i][numVertices] = 0;
         }
         numVertices++;
     }
 
     @Override
-    public void removeVertex(T vertex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeVertex (T vertex) {
+        for (int i = 0; i < numVertices; i++)        {
+            if (vertex.equals(vertices[i]))
+            {
+                removeVertex(i);
+                return;
+            }
+        }
     }
 
-    @Override
-    public void addEdge(T vertex1, T vertex2) {
-        addEdge(getIndex(vertex1), getIndex(vertex2));
+    public void removeVertex (int index) {
+        if (indexIsValid(index))
+        {
+            numVertices--;
 
-    }
+            for (int i = index; i < numVertices; i++)
+                vertices[i] = vertices[i+1];
 
-    public void addEdge(int index1, int index2) {
-        if (indexIsValid(index1) && indexIsValid(index2)) {
-            adjMatrix[index1][index2]=true;
-            adjMatrix[index2][index1] = true;
+            for (int i = index; i < numVertices; i++)
+                for (int j = 0; j <= numVertices; j++)
+                    adjMatrix[i][j] = adjMatrix[i+1][j];
+
+            for (int i = index; i < numVertices; i++)
+                for (int j = 0; j < numVertices; j++)
+                    adjMatrix[j][i] = adjMatrix[j][i+1];
         }
     }
 
     @Override
-    public void removeEdge(T vertex1, T vertex2) {
-       
+    public void addEdge(T vertex1, T vertex2, double weight1, double weight2) {
+        addEdge(getIndex(vertex1), getIndex(vertex2), weight1, weight2);
+
+    }
+
+    public void addEdge(int index1, int index2, double weight1, double weight2) {
+        if (indexIsValid(index1) && indexIsValid(index2)) {
+            adjMatrix[index1][index2]=weight1;
+            adjMatrix[index2][index1] = weight2;
+        }
+    }
+
+    @Override
+    public void removeEdge (T vertex1, T vertex2)
+    {
+        removeEdge (getIndex(vertex1), getIndex(vertex2));
+    }
+
+    public void removeEdge (int index1, int index2) {
+        if (indexIsValid(index1) && indexIsValid(index2)) {
+            adjMatrix[index1][index2] = 0;
+            adjMatrix[index2][index1] = 0;
+        }
     }
 
     public Iterator iteratorBFS(int startIndex) {
@@ -89,12 +168,12 @@ public class Graph<T> implements GraphADT<T> {
         }
         return resultList.iterator();
     }
+
      @Override
      public Iterator iteratorBFS(T startVertex ){
          return iteratorBFS(getIndex(startVertex));
      }
 
-    
     public Iterator iteratorDFS(int startIndex) {
         Integer x;
         boolean found;
@@ -135,9 +214,34 @@ public class Graph<T> implements GraphADT<T> {
     public Iterator iteratorDFS(T startVertex){
         return iteratorDFS(getIndex(startVertex));
     }
+
     @Override
-    public Iterator iteratorShortestPath(T startVertex, T targetVertex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterator<T> iteratorShortestPath(T startVertex, T targetVertex)
+    {
+        return iteratorShortestPath(getIndex(startVertex),
+                getIndex(targetVertex));
+    }
+
+    protected Iterator<Integer> iteratorShortestPathIndices
+            (int startIndex, int targetIndex)
+    {
+        double shortestPathLength0=-1;
+
+        return null;
+    }
+
+    public Iterator<T> iteratorShortestPath(int startIndex,
+                                            int targetIndex)
+    {
+        ArrayUnorderedList<T> resultList = new ArrayUnorderedList<T>();
+        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex))
+            return resultList.iterator();
+
+        Iterator<Integer> it = iteratorShortestPathIndices(startIndex,
+                targetIndex);
+        while (it.hasNext())
+            resultList.addToRear(vertices[((Integer)it.next()).intValue()]);
+        return resultList.iterator();
     }
 
     @Override
@@ -152,7 +256,7 @@ public class Graph<T> implements GraphADT<T> {
         }
         Iterator<T> pes=iteratorBFS(0);
         int count=0;
-        
+
         while(pes.hasNext()){
             pes.next();
             count++;
@@ -168,17 +272,19 @@ public class Graph<T> implements GraphADT<T> {
     protected boolean indexIsValid(int index) {
        return ((index<numVertices) && (index>=0));
     }
+
     public int getIndex(T vertex){
         for(int i=0;i<numVertices;i++){
             if(vertices[i].equals(vertex)){
                 return i;
             }
-            
+
         }return -1;
     }
+
     protected void expandCapacity() {
         T[] tempVertices=(T[])(new Object[vertices.length*2]);
-        boolean[][] tempAdjMatrix= new boolean [vertices.length*2][vertices.length*2];
+        double[][] tempAdjMatrix= new double [vertices.length*2][vertices.length*2];
         
         for(int i=0;i<numVertices;i++){
             for(int j=0;j<numVertices;j++){

@@ -12,19 +12,27 @@ import java.util.Objects;
  * @author ricar
  */
 public class FormacaoAcademica {
-    private int ano;
+    private long ano;
     private String formacao;
 
-    public FormacaoAcademica(int ano, String formacao) {
+    public FormacaoAcademica(long ano, String formacao) {
         this.ano = ano;
         this.formacao = formacao;
     }
 
-    public int getAno() {
+    @Override
+    public String toString() {
+        return "["+
+                "ano: " + ano +
+                ", formacao: '" + formacao + '\'' +
+                ']';
+    }
+
+    public long getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(long ano) {
         this.ano = ano;
     }
 

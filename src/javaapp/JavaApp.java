@@ -5,6 +5,12 @@
  */
 package javaapp;
 
+import javaapp.Pessoa.CargosProfissionais;
+import javaapp.Pessoa.FormacaoAcademica;
+import javaapp.Pessoa.Pessoa;
+
+import java.util.Iterator;
+
 /**
  *
  * @author admin
@@ -15,7 +21,11 @@ public class JavaApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Reader r = new Reader();
+        Graph g = r.fileReader("test.txt");
+        System.out.println(g.toString());
+        Iterator i = g.iteratorShortestPath(g.vertices[0], g.vertices[4]);
+        System.out.println(i);
     }
     
 }

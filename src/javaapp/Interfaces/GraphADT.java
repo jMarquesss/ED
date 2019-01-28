@@ -18,7 +18,7 @@ public interface GraphADT<T> {
     
     public void removeVertex(T vertex);
     
-    public void addEdge(T vertex,T vertex2);
+    public void addEdge(T vertex1, T vertex2, double weight1, double weight2);
     
     public void removeEdge(T vertex1,T vertex2);
     
@@ -26,7 +26,7 @@ public interface GraphADT<T> {
     
     public Iterator iteratorDFS(T startVertex);
     
-    public Iterator iteratorShortestPath(T startVertex, T targetVertex);
+    public Iterator <T> iteratorShortestPath(T startVertex, T targetVertex);
     
     public boolean isEmpty();
     

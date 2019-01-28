@@ -5,34 +5,58 @@
  */
 package javaapp.Pessoa;
 
+import javaapp.ArrayUnorderedList;
+
 /**
  *
  * @author ricar
  */
 public class Pessoa {
-    private int id;
+    private long id;
     private String nome;
-    private int idade;
+    private long idade;
     private String email;
-    private FormacaoAcademica formacao;
-    private CargosProfissionais cargos;
-    private String skills;
+    private ArrayUnorderedList formacoes;
+    private ArrayUnorderedList cargos;
+    private ArrayUnorderedList skills;
+    private ArrayUnorderedList contacts;
+    private ArrayUnorderedList mencoes;
+    private long visualizacoes;
 
-    public Pessoa(int id, String nome, int idade, String email, FormacaoAcademica formacao, CargosProfissionais cargos, String skills) {
+    public Pessoa(long id, String nome, long idade, String email, ArrayUnorderedList formacoes, ArrayUnorderedList cargos, ArrayUnorderedList skills, ArrayUnorderedList contacts, ArrayUnorderedList mencoes, long visualizacoes) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
         this.email = email;
-        this.formacao = formacao;
+        this.formacoes = formacoes;
         this.cargos = cargos;
         this.skills = skills;
+        this.contacts = contacts;
+        this.mencoes = mencoes;
+        this.visualizacoes = visualizacoes;
     }
 
-    public int getId() {
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "Id: " + id +
+                "Nome :'" + nome + '\n' +
+                "Idade :" + idade + '\n' +
+                "Email :'" + email + '\n' +
+                "Formacoes Academicas"+'\n'+ formacoes +
+                "Cargos Profissionais"+'\n'+ cargos +
+                "Skills"+ '\n' + skills +
+                "Contactos" +'\n'+ contacts +
+                "Mencoes" + '\n'+mencoes +
+                "Visualizacoes: " + visualizacoes +
+                '}';
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -44,11 +68,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public long getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(long idade) {
         this.idade = idade;
     }
 
@@ -60,29 +84,59 @@ public class Pessoa {
         this.email = email;
     }
 
-    public FormacaoAcademica getFormacao() {
-        return formacao;
+    public ArrayUnorderedList getformacoes() {
+        return formacoes;
     }
 
-    public void setFormacao(FormacaoAcademica formacao) {
-        this.formacao = formacao;
+    public void setformacoes(ArrayUnorderedList formacoes) {
+        this.formacoes = formacoes;
     }
 
-    public CargosProfissionais getCargos() {
+    public ArrayUnorderedList getCargos() {
         return cargos;
     }
 
-    public void setCargos(CargosProfissionais cargos) {
+    public void setCargos(ArrayUnorderedList cargos) {
         this.cargos = cargos;
     }
 
-    public String getSkills() {
+    public ArrayUnorderedList getSkills() {
         return skills;
     }
 
-    public void setSkills(String skills) {
+    public void setSkills(ArrayUnorderedList skills) {
         this.skills = skills;
     }
-    
-    
+
+    public ArrayUnorderedList getFormacoes() {
+        return formacoes;
+    }
+
+    public void setFormacoes(ArrayUnorderedList formacoes) {
+        this.formacoes = formacoes;
+    }
+
+    public ArrayUnorderedList getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ArrayUnorderedList contacts) {
+        this.contacts = contacts;
+    }
+
+    public ArrayUnorderedList getMencoes() {
+        return mencoes;
+    }
+
+    public void setMencoes(ArrayUnorderedList mencoes) {
+        this.mencoes = mencoes;
+    }
+
+    public long getVisualizacoes() {
+        return visualizacoes;
+    }
+
+    public void setVisualizacoes(long visualizacoes) {
+        this.visualizacoes = visualizacoes;
+    }
 }

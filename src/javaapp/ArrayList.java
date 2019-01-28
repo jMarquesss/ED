@@ -19,8 +19,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
    /******************************************************************
      Creates an empty list using the default capacity.
    ******************************************************************/
-   public ArrayList()
-   {
+   public ArrayList()   {
       rear = 0;
       list = (T[])(new Object[DEFAULT_CAPACITY]);
    }
@@ -28,8 +27,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
    /******************************************************************
      Creates an empty list using the specified capacity.
    ******************************************************************/
-   public ArrayList (int initialCapacity)
-   {
+   public ArrayList (int initialCapacity)   {
       rear = 0;
       list = (T[])(new Object[initialCapacity]);
    }
@@ -37,8 +35,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
    /******************************************************************
      Removes and returns the last element in the list.
    ******************************************************************/
-   public T removeLast () throws EmptyCollectionException
-   {
+   public T removeLast () throws EmptyCollectionException   {
       T result;
 
       if (isEmpty())
@@ -54,8 +51,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
    /******************************************************************
      Removes and returns the first element in the list.
    ******************************************************************/
-   public T removeFirst() throws EmptyCollectionException
-   {
+   public T removeFirst() throws EmptyCollectionException   {
       if (isEmpty())
          throw new EmptyCollectionException ("list");
 
@@ -73,8 +69,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
    /******************************************************************
      Removes and returns the specified element.
    ******************************************************************/
-   public T remove (T element)
-   {
+   public T remove (T element)   {
       T result;
       int index = find (element);
 
@@ -97,8 +92,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
      The element is not removed from the list.  Throws an
      EmptyCollectionException if the list is empty.  
    ******************************************************************/
-   public T first() throws EmptyCollectionException
-   {
+   public T first() throws EmptyCollectionException   {
       if (isEmpty())
          throw new EmptyCollectionException ("list"); 
 
@@ -110,8 +104,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
      The element is not removed from the list.  Throws an
      EmptyCollectionException if the list is empty.  
    ******************************************************************/
-   public T last() throws EmptyCollectionException
-   {
+   public T last() throws EmptyCollectionException   {
       if (isEmpty())
          throw new EmptyCollectionException ("list"); 
 
@@ -130,8 +123,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
      Returns the array index of the specified element, or the
      constant NOT_FOUND if it is not found.
    ******************************************************************/
-   private int find (T target)
-   {
+   public int find (T target)   {
       int scan = 0, result = NOT_FOUND;
       boolean found = false;
 
@@ -175,8 +167,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
    /******************************************************************
      Returns a string representation of this list. 
    ******************************************************************/
-   public String toString()
-   {
+   public String toString()   {
       String result = "";
 
       for (int scan=0; scan < rear; scan++) 
@@ -189,8 +180,7 @@ public class ArrayList<T> implements ListADT<T>, Iterable<T>
      Creates a new array to store the contents of the list with
      twice the capacity of the old one.
    ******************************************************************/
-   protected void expandCapacity()
-   {
+   protected void expandCapacity()   {
       T[] larger = (T[])(new Object[list.length*2]);
 
       for (int scan=0; scan < list.length; scan++)

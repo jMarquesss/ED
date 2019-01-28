@@ -10,21 +10,30 @@ package javaapp.Pessoa;
  * @author ricar
  */
 public class CargosProfissionais {
-    private int ano;
+    private long ano;
     private String cargo;
     private String empresa;
 
-    public CargosProfissionais(int ano, String cargo, String empresa) {
+    public CargosProfissionais(long ano, String cargo, String empresa) {
         this.ano = ano;
         this.cargo = cargo;
         this.empresa = empresa;
     }
 
-    public int getAno() {
+    @Override
+    public String toString() {
+        return  "[" +
+                "ano: " + ano +
+                ", cargo: '" + cargo + '\'' +
+                ", empresa: '" + empresa + '\'' +
+                ']';
+    }
+
+    public long getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(long ano) {
         this.ano = ano;
     }
 
